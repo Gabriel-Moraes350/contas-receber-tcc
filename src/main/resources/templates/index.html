@@ -1,9 +1,30 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>This is the title of the webpage!</title>
+    <title>teste</title>
 </head>
 <body>
-<p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
+
+<section>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <h3 class="mb-2">Finance Dashboard </h3>
+                <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet
+                    vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="#">Dashboard</a></li>
+                            <li aria-current="page" class="breadcrumb-item active">Finance Dashboard Template</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 </body>
 </html>

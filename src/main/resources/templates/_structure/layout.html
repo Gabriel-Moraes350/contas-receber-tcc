@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="layout(title, content)" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments/header :: baseHead(~{::title})">
+</head>
+<body>
+
+<div class="dashboard-main-wrapper">
+
+
+    <div th:replace="_fragments/navbar :: navbar">
+    </div>
+    <div class="dashboard-wrapper">
+        <div class="container-fluid dashboard-content ">
+            <section th:replace="${content}">
+                <p>Layout contents</p>
+            </section>
+        </div>
+    </div>
+</div>
+<div th:replace="_fragments/footer :: footer"></div>
+<script src="../../static/admin/assets/vendor/jquery/jquery-3.3.1.min.js"
+        th:src="@{/admin/assets/vendor/jquery/jquery-3.3.1.min.js}"></script>
+<!-- bootstap bundle js -->
+<script src="../../static/assets/vendor/bootstrap/js/bootstrap.bundle.js"
+        th:src="@{/admin/assets/vendor/bootstrap/js/bootstrap.bundle.js}"></script>
+<!-- slimscroll js -->
+<script src="../../static/assets/vendor/slimscroll/jquery.slimscroll.js"
+        th:src="@{/admin/assets/vendor/slimscroll/jquery.slimscroll.js}"></script>
+</body>
+</html>
