@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contas a receber</title>
+</head>
+<body>
+
+
+<section>
+    <div class="row">
+        <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <form>
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5>Contas a Receber</h5>
+                        <a class="btn btn-primary pull-right" href="/contas-receber/view">Criar Novo</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th class="border-0"></th>
+                                    <th class="border-0">#</th>
+                                    <th class="border-0">Status</th>
+                                    <th class="border-0">Cliente</th>
+                                    <th class="border-0">Valor Total</th>
+                                    <th class="border-0">Data Criação</th>
+                                    <th class="border-0">Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${contasReceber.empty}">
+                                    <td colspan="2"> Não há contas a receber</td>
+                                </tr>
+                                <tr th:each="conta: ${contasReceber}">
+                                    <td>
+                                        <label class="custom-control custom-checkbox">
+                                            <input checked="" class="custom-control-input" name="select-contas"
+                                                   th:id="${conta.id}" type="checkbox">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </td>
+                                    <td th:text="${conta.id}"></td>
+                                    <td th:text="${conta.status}">
+                                    </td>
+                                    <td th:text="${conta.cliente.nome}"></td>
+                                    <td>R$<span
+                                            th:text="${#numbers.formatDecimal(conta.valorTotal, 2, 2, 'COMMA')}"></span>
+                                    </td>
+                                    <td th:text="${#temporals.format(conta.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
+                                    <td><a class="btn btn-secondary btn-small"
+                                           th:href="@{'/contas-receber/view?id=' + ${conta.id}}">Editar</a>
+                                        <button class="btn btn-danger btn-small delete-contas-btn" type="button"
+                                                th:attr="data-id=${conta.id}">Excluir
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -4,14 +4,7 @@ import com.techeasy.contas.receber.domain.clientes.model.Cliente;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -49,7 +42,8 @@ public class Conta {
             this.numero = numero;
         }
 
-        public ContaId(){}
+        public ContaId() {
+        }
 
     }
 }

@@ -5,12 +5,14 @@ logging:
       hibernate:
         SQL: DEBUG
         type: TRACE
+
 spring:
   datasource:
     password: root
     url: 'jdbc:postgresql://localhost:5432/postgres'
     username: postgres
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: none
     properties:

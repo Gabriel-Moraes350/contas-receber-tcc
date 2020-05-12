@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contas a receber</title>
+</head>
+<body>
+<section>
+    <div class="row">
+        <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header ">Contas a Receber</h5>
+                <form action="#" method="post" th:action="@{/contas-receber/save}" th:object="${contaReceber}">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                                <div th:each="detailedError : ${#fields.detailedErrors()}">
+                                    <span th:text="${detailedError.message}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input class="form-control" name="id" th:field="*{id}" th:type="hidden">
+                        <input class="form-control" name="codRemessa" th:field="*{codRemessa}" th:type="hidden">
+                        <input class="form-control" name="codRegistroLote" th:field="*{codRegistroLote}"
+                               th:type="hidden">
+                        <input class="form-control" name="pontos" th:field="*{pontos}" th:type="hidden">
+
+                        <div class="form-group">
+                            <label for="input-select">Clientes</label>
+                            <select class="form-control" required th:field="*{cliente}">
+                                <option th:each="cliente : ${clientes}" th:text="${cliente.nome}"
+                                        th:value="${cliente.id}"></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-select">Formas de Pagamento</label>
+                            <select class="form-control" id="input-select" required th:field="*{formaPagamento}">
+                                <option th:each="value : ${formasPagamento}" th:text="${value}"
+                                        th:value="${value}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-select">Status</label>
+                            <select class="form-control" required th:field="*{status}">
+                                <option th:each="value : ${allStatus}" th:text="${value}" th:value="${value}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="banco">Código Banco</label>
+                            <input class="form-control" id="banco" required th:field="*{codigoBanco}" th:type="number"
+                                   type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="numParcela">Número Parcelas</label>
+                            <input class="form-control" id="numParcela" th:field="*{numParcela}" th:type="number"
+                                   type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="valorMulta">Valor Multa (R$)</label>
+                            <input class="form-control currency" id="valorMulta" th:field="*{valorMulta}" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="valorDesconto">Valor Desconto (R$)</label>
+                            <input class="form-control currency" id="valorDesconto" th:field="*{valorDesconto}"
+                                   type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="valorLiquidoRecebido">Valor Liquido Recebido (R$)</label>
+                            <input class="form-control currency" id="valorLiquidoRecebido"
+                                   th:field="*{valorLiquidoRecebido}" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="valorTotal">Valor Total (R$)</label>
+                            <input class="form-control currency" id="valorTotal" required th:field="*{valorTotal}"
+                                   type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="servicoPrestado">Serviço Prestado</label>
+                            <textarea class="form-control" id="servicoPrestado" required
+                                      th:field="*{servicoPrestado}"></textarea>
+                        </div>
+
+                        <div class="form-group" th:if="${contaReceber.dataCriacao != null}">
+                            <label>Data Criação </label>
+                            <input class="form-control" disabled
+                                   th:value="${#temporals.format(contaReceber.dataCriacao, 'dd/MM/yyyy')}"
+                                   type="text">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Data Vencimento</label>
+                            <input class="form-control date-inputmask" required th:field="*{dataVencimento}"
+                                   th:value="${#temporals.format(contaReceber.dataVencimento, 'dd/MM/yyyy')}"
+                                   type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data Crédito</label>
+                            <input class="form-control date-inputmask" th:field="*{dataCredito}"
+                                   th:value="${#temporals.format(contaReceber.dataCredito, 'dd/MM/yyyy')}" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data Ocorrência</label>
+                            <input class="form-control date-inputmask" th:field="*{dataOcorrencia}"
+                                   th:value="${#temporals.format(contaReceber.dataOcorrencia, 'dd/MM/yyyy')}"
+                                   type="text">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn secondary pull-right" href="/contas-receber">Voltar</a>
+                        <button class="btn btn-primary pull-left" type="submit">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>
