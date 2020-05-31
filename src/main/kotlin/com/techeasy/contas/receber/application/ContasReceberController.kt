@@ -1,6 +1,6 @@
 package com.techeasy.contas.receber.application
 
-import com.techeasy.contas.receber.domain.clientes.model.ClienteService
+import com.techeasy.contas.receber.domain.clientes.ClienteServiceImpl
 import com.techeasy.contas.receber.domain.contasreceber.ContasReceberService
 import com.techeasy.contas.receber.domain.contasreceber.model.ContasReceber
 import org.slf4j.LoggerFactory
@@ -26,9 +26,9 @@ class ContasReceberController {
     }
 
     private lateinit var contasReceberService: ContasReceberService
-    private lateinit var clienteService: ClienteService
+    private lateinit var clienteService: ClienteServiceImpl
 
-    constructor(contasReceberService: ContasReceberService, clienteService: ClienteService) {
+    constructor(contasReceberService: ContasReceberService, clienteService: ClienteServiceImpl) {
         this.contasReceberService = contasReceberService
         this.clienteService = clienteService
     }

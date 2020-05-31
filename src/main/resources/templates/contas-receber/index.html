@@ -46,7 +46,7 @@
                                     <td th:text="${conta.id}"></td>
                                     <td th:text="${conta.status}">
                                     </td>
-                                    <td th:text="${conta.cliente.nome}"></td>
+                                    <td th:text="${conta.cliente.nomeFantasia}"></td>
                                     <td>R$<span
                                             th:text="${#numbers.formatDecimal(conta.valorTotal, 2, 2, 'COMMA')}"></span>
                                     </td>

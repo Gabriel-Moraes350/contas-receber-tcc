@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Clientes</title>
 </head>
 <body>
 
+
+<section>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <form>
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5>Clientes</h5>
+                        <a class="btn btn-primary pull-right" href="/clientes/view">Criar Novo</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th class="border-0">#</th>
+                                    <th class="border-0">Tipo</th>
+                                    <th class="border-0">CPF/CNPJ</th>
+                                    <th class="border-0">Razão Social</th>
+                                    <th class="border-0">Nome/Nome Fantasia</th>
+                                    <th class="border-0">Email</th>
+                                    <th class="border-0">Telefone</th>
+                                    <th class="border-0">Bloqueado</th>
+                                    <th class="border-0">Data de Bloqueio</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${clientes.isEmpty()}">
+                                    <td colspan="2">Não há clientes cadastrados</td>
+                                </tr>
+                                <tr th:style="${cliente.bloqueado} ? ${'color: red;'}" th:each="cliente: ${clientes}">
+                                    <td th:text="${cliente.id}"></td>
+                                    <td th:text="${cliente.tipo == 'F' ? 'PF' : 'PJ'}"></td>
+                                    <td th:text="${cliente.cnpj}"></td>
+                                    <td th:text="${cliente.razaoSocial}"></td>
+                                    <td th:text="${cliente.nomeFantasia}"></td>
+                                    <td th:text="${cliente.email}"></td>
+                                    <td th:text="${'(' + cliente.dddTelefone + ') ' + cliente.telefone}"></td>
+                                    <td th:text="${cliente.bloqueado ? 'Sim' : 'Não'}"></td>
+                                    <td th:text="${cliente.datUltBloqueio != null ? #dates.format(cliente.datUltBloqueio, 'dd/MM/yyyy HH:mm') : '-'}"></td>
+                                    <td><a class="btn btn-secondary btn-small"
+                                           th:href="@{'/clientes/view?id=' + ${cliente.id}}">Editar</a>
+                                        <button class="btn btn-danger btn-small delete-clientes-btn" type="button"
+                                                th:attr="data-id=${cliente.id}">Excluir
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

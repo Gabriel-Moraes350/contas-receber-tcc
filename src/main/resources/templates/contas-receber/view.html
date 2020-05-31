@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <label for="input-select">Clientes</label>
                             <select class="form-control" required th:field="*{cliente}">
-                                <option th:each="cliente : ${clientes}" th:text="${cliente.nome}"
+                                <option th:each="cliente : ${clientes}" th:text="${cliente.nomeFantasia}"
                                         th:value="${cliente.id}"></option>
                             </select>
                         </div>

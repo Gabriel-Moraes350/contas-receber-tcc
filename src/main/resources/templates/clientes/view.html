@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+</head>
+<body>
+<section>
+    <div class="row">
+        <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header ">Clientes</h5>
+                <form action="#" method="post" th:action="@{/clientes/save}" th:object="${cliente}">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                                <div th:each="detailedError : ${#fields.detailedErrors()}">
+                                    <span th:text="${detailedError.message}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input class="form-control" name="id" th:field="*{id}" th:type="hidden">
+
+                        <div class="form-group" style="display: flex; flex-direction: row;">
+                            <div>
+                                <label class="col-form-label" for="tipo-select">Tipo</label>
+                                <select class="form-control" id="tipo-select" required th:field="*{tipo}">
+                                    <option th:text="Física" th:value="F"></option>
+                                    <option th:text="Jurídica" th:value="J"></option>
+                                </select>
+                            </div>
+                            <div>
+                                <div class="fisica" style="margin-left: 50px;">
+                                    <label class="col-form-label" for="cpf">CPF</label>
+                                    <input class="form-control cpf-inputmask" id="cpf" th:field="*{cnpj}" th:type="text">
+                                </div>
+
+                                <div class="juridica" style="margin-left: 50px;">
+                                    <label class="col-form-label" for="cnpj">CNPJ</label>
+                                    <input class="form-control cnpj-inputmask" id="cnpj" th:field="*{cnpj}" th:type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group juridica">
+                            <label class="col-form-label" for="razaoSocial">Razão Social</label>
+                            <input class="form-control" id="razaoSocial" th:field="*{razaoSocial}" th:type="text">
+                        </div>
+
+                        <div class="form-group fisica">
+                            <label class="col-form-label" for="nome">Nome</label>
+                            <input class="form-control" id="nome" th:field="*{nomeFantasia}" th:type="text">
+                        </div>
+
+                        <div class="form-group juridica">
+                            <label class="col-form-label" for="nomeFantasia">Nome Fantasia</label>
+                            <input class="form-control" id="nomeFantasia" th:field="*{nomeFantasia}" th:type="text">
+                        </div>
+
+                        <div class="form-group juridica">
+                            <label class="col-form-label" for="inscricaoEstadual">Inscrição Estadual</label>
+                            <input class="form-control insc-estadual-inputmask" id="inscricaoEstadual"
+                                   th:field="*{inscricaoEstadual}" th:type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="email">Email</label>
+                            <input class="form-control" id="email" required th:field="*{email}" th:type="email">
+                        </div>
+
+                        <div class="form-group" style="display: flex; flex-direction: row;">
+                            <div style="max-width: 80px;">
+                                <label class="col-form-label" for="ddd">DDD</label>
+                                <input class="form-control" id="ddd" th:field="*{dddTelefone}" th:type="number" th:max="99">
+                            </div>
+                            <div style="margin-left: 50px;">
+                                <label class="col-form-label" for="telefone">Telefone</label>
+                                <input class="form-control" id="telefone"  th:field="*{telefone}" th:type="number"
+                                       th:max="999999999">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="display: flex; flex-direction: row;">
+                            <div>
+                                <label for="bloqueado-select">Bloqueado</label>
+                                <select class="form-control" id="bloqueado-select" required th:field="*{bloqueado}">
+                                    <option th:text="Sim" th:value="True"></option>
+                                    <option th:text="Não" th:value="False"></option>
+                                </select>
+                            </div>
+                            <div class="form-group" th:if="${cliente.bloqueado == true}" style="margin-left: 50px;">
+                                <label>Data do último bloqueio</label>
+                                <input class="form-control" disabled
+                                       th:value="${#dates.format(cliente.datUltBloqueio, 'dd/MM/yyyy hh:mm')}">
+                            </div>
+                        </div>
+
+
+                    <div class="card-footer">
+                        <a class="btn secondary pull-right" href="/clientes">Voltar</a>
+                        <button class="btn btn-primary pull-left" type="submit">Salvar</button>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>
