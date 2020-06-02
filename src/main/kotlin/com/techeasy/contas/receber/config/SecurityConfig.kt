@@ -32,7 +32,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/contas-receber",true)
+                .defaultSuccessUrl("/home",true)
                 .permitAll().and().logout()
                 .logoutRequestMatcher(AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login").permitAll()

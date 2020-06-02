@@ -2,20 +2,12 @@ package com.techeasy.contas.receber.domain.usuarios.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
-
-import javax.persistence.*;
 
 
 @Data
@@ -46,7 +38,6 @@ public class Usuario implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> listGrantedAuth = null;
-        System.out.print("Passou aqui usuario");
         listGrantedAuth.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
@@ -86,5 +77,4 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }
