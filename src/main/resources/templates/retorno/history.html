@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico Retorno</title>
+</head>
+<body>
+
+
+<section>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <form action="/retorno/importar" method="post" enctype="multipart/form-data">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5>Histórico retornos</h5>
+
+                        <div class="custom-file" style="max-width:20%;cursor:pointer">
+                            <input type="file" th:name="file" class="custom-file-input hidden" id="fileInput" style="cursor:pointer">
+                            <label class="custom-file-label btn btn-primary pull-right" style="cursor:pointer" for="fileInput">Importar arquivo</label>
+                        </div>
+                    </div>
+                    <div class="row mt-1" th:if="${message}">
+                        <div class="col-12 success text-center text-primary">
+                            <h4 class="text-success" th:text="${message}"></h4>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive" style="padding: 20px 10px">
+                            <table class="table data-table-default table-striped table-bordered">
+                                <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th class="border-0">#</th>
+                                    <th class="border-0">Nome</th>
+                                    <th class="border-0">Data de Importação</th>
+                                    <th class="border-0">Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${retornos.empty}">
+                                    <td colspan="10"> Não há retornos</td>
+                                </tr>
+                                <tr th:each="retorno: ${retornos}">
+                                    <td th:text="${retorno.id}"></td>
+                                    <td th:text="${retorno.name}"></td>
+                                    <td th:text="${#temporals.format(retorno.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                                    <td><a class="btn btn-secondary btn-small"
+                                           th:href="@{'/retorno/file/' + ${retorno.id}}">Download</a>
+                                        <a href="#" class="btn btn-primary btn-details-retorno" th:attr="data-id=${retorno.id}" data-toggle="modal" data-target="#detailsModal">Ver Detalhes</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModal" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="min-width: 600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalhes</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+                            <div class="table-responsive" style="padding: 20px 10px">
+                                <table class="table modal-data-table table-striped table-bordered">
+                                    <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">Conta Receber</th>
+                                        <th class="border-0">Valor total recebido(R$)</th>
+                                        <th class="border-0">Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="retorno-table-body">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-secondary" data-dismiss="modal">Fechar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

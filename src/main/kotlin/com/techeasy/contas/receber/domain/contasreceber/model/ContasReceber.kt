@@ -1,6 +1,7 @@
 package com.techeasy.contas.receber.domain.contasreceber.model
 
 import com.techeasy.contas.receber.domain.clientes.model.Cliente
+import org.hibernate.annotations.UpdateTimestamp
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.format.annotation.NumberFormat
@@ -29,11 +30,7 @@ data class ContasReceber(
 
         var numParcela: Int? = 0,
 
-        var codigoBanco: Int? = null,
-
-        var codRemessa: Int? = null,
-
-        var codRegistroLote: Int? = null,
+        var numDocumento: String? = null,
 
         @field:NumberFormat(pattern = "#.###,##") var valorMulta: BigDecimal = BigDecimal.valueOf(0, 2),
 
@@ -47,13 +44,18 @@ data class ContasReceber(
 
         var servicoPrestado: String = "",
 
+        @Enumerated(EnumType.STRING)
+        var tipoServicoPrestado: TipoServicoPrestado = TipoServicoPrestado.SERVICO,
+
         @CreatedDate
         @field:DateTimeFormat(pattern = "dd/MM/yyyy") var dataCriacao: OffsetDateTime? = OffsetDateTime.now(),
-        // TODO FIX CREATED AT ( ESTÁ ATUALIZANDO TODO UPDATE)
+        @UpdateTimestamp
+        var dataAlteracao: OffsetDateTime? = null,
 
         @field:DateTimeFormat(pattern = "dd/MM/yyyy") var dataVencimento: LocalDate? = null,
 
-        @field:DateTimeFormat(pattern = "dd/MM/yyyy") var dataCredito: OffsetDateTime? = null,
+        @field:DateTimeFormat(pattern = "dd/MM/yyyy") var dataCredito: LocalDate? = null,
 
-        @field:DateTimeFormat(pattern = "dd/MM/yyyy") var dataOcorrencia: OffsetDateTime? = null
+        @field:DateTimeFormat(pattern = "dd/MM/yyyy") var dataLiquidacao: LocalDate? = null,
+        var deletedAt: OffsetDateTime? = null
 );

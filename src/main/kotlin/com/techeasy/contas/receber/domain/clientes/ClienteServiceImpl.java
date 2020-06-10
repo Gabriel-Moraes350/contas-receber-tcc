@@ -3,9 +3,11 @@ package com.techeasy.contas.receber.domain.clientes;
 import com.techeasy.contas.receber.domain.clientes.model.Cliente;
 import com.techeasy.contas.receber.domain.clientes.model.ClienteService;
 import com.techeasy.contas.receber.infra.repositories.ClienteRepository;
+import com.techeasy.contas.receber.infra.repositories.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
+    @Autowired
+    EnderecoRepository enderecoRepository;
+
     @Override
     public List<Cliente> getAll() {
         return clienteRepository.findAll();
@@ -22,7 +27,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public List<Cliente> findAll() {
-        return clienteRepository.findAllByOrderByIdAsc();
+        return clienteRepository.findByDeleteDate();
     }
 
     @Override
@@ -32,20 +37,25 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void save(Cliente cliente) {
-        if (cliente.getTipo().equals("F")) {
+        if (cliente.getTipo().name().equals("F")) {
             cliente.setCnpj(cliente.getCnpj().split(",")[0]);
             cliente.setNomeFantasia(cliente.getNomeFantasia().split(",")[0]);
         } else {
             cliente.setCnpj(cliente.getCnpj().split(",")[1]);
             cliente.setNomeFantasia(cliente.getNomeFantasia().split(",")[1]);
         }
+        cliente.setCnpj(cliente.getCnpj().replaceAll("\\.|-|/", ""));
+        cliente.setInscricaoEstadual(cliente.getInscricaoEstadual().replaceAll("\\.", ""));
+        cliente.getEndereco().setCep(cliente.getEndereco().getCep().replaceAll("\\.|-", ""));
+
         clienteRepository.save(cliente);
     }
 
     @Override
     public void delete(Long id) {
-        clienteRepository.deleteById(id);
+
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+        cliente.get().setDeleteDate(new Date());
+        clienteRepository.save(cliente.get());
     }
-
-
 }

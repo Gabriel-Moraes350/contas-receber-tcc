@@ -14,23 +14,18 @@ import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.time.OffsetDateTime
 import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping("contas-receber")
-class ContasReceberController {
+class ContasReceberController(private var contasReceberService: ContasReceberService, private var clienteService: ClienteServiceImpl) {
+
 
     companion object {
+        @JvmStatic
         private val PREFIX = "contas-receber"
         private val log = LoggerFactory.getLogger(ContasReceberController.javaClass)
-    }
-
-    private lateinit var contasReceberService: ContasReceberService
-    private lateinit var clienteService: ClienteServiceImpl
-
-    constructor(contasReceberService: ContasReceberService, clienteService: ClienteServiceImpl) {
-        this.contasReceberService = contasReceberService
-        this.clienteService = clienteService
     }
 
     @InitBinder
@@ -51,7 +46,7 @@ class ContasReceberController {
 
         val contasReceber = contasReceberService.getAll()
 
-        model.set("contasReceber", contasReceber)
+        model.set("contasReceber", contasReceber.sortedBy { it.dataVencimento })
 
         return "$PREFIX/index"
     }
@@ -70,7 +65,8 @@ class ContasReceberController {
 
         model["allStatus"] = contasReceberService.getStatus()
         model["formasPagamento"] = contasReceberService.getFormasPagamento()
-        model["clientes"] = clienteService.getAll()
+        model["clientes"] = clienteService.findAll()
+        model["tiposServico"] = contasReceberService.getTipoServico()
 
         return "$PREFIX/view"
     }
@@ -78,6 +74,7 @@ class ContasReceberController {
     @PostMapping("save")
     fun save(@ModelAttribute(value = "contaReceber") contaReceber: ContasReceber): String {
         log.info(contaReceber.toString());
+        contaReceber.dataAlteracao = OffsetDateTime.now()
         contasReceberService.save(contaReceber);
         return "redirect:/$PREFIX"
     }

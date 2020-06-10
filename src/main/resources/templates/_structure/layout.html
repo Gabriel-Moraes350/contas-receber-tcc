@@ -29,14 +29,23 @@
 
 <script src="../../static/assets/libs/js/main-js.js"
         th:src="@{/admin/assets/libs/js/main-js.js}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment-with-locales.min.js">
+</script>
 <script src="../../static/assets/vendor/inputmask/js/jquery.inputmask.bundle.js"
         th:src="@{/admin/assets/vendor/inputmask/js/jquery.inputmask.bundle.js}"></script>
+<script src="https://cdn.datatables.net/v/bs4/dt-1.10.21/cr-1.5.2/sp-1.1.1/datatables.min.js"
+        type="text/javascript"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.21/sorting/datetime-moment.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
 <script th:src="@{/js/mask.js}"></script>
-<script th:src="@{/js/contas-receber/deletar.js}"></script>
-<script th:src="@{/js/clientes/deletar.js}"></script>
+<script th:src="@{/js/deletar.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
 <script th:src="@{/js/clientes/clientes.js}"></script>
+<script th:src="@{/js/retorno.js}"></script>
+<script th:src="@{/js/remessa.js}"></script>
+<script th:src="@{/js/initialize-defaults.js}"></script>
 
 </body>
 </html>

@@ -11,91 +11,126 @@
         <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
             <div class="card">
                 <h5 class="card-header ">Clientes</h5>
-                <form action="#" method="post" th:action="@{/clientes/save}" th:object="${cliente}">
+                <form action="#" method="post" th:action="@{/clientes/save}">
                     <div class="card-body">
-                        <div class="form-group row">
-                            <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-                                <div th:each="detailedError : ${#fields.detailedErrors()}">
-                                    <span th:text="${detailedError.message}"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <input class="form-control" name="id" th:field="*{id}" th:type="hidden">
+                        <p>
+                            Cadastro de cliente<br>
+                            <i>Campos com * são obrigatórios</i>
+                        </p>
 
-                        <div class="form-group" style="display: flex; flex-direction: row;">
-                            <div>
-                                <label class="col-form-label" for="tipo-select">Tipo</label>
-                                <select class="form-control" id="tipo-select" required th:field="*{tipo}">
+                        <input class="form-control" name="id" th:field="${cliente.id}" th:type="hidden">
+
+                        <div class="form-row">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="tipo-select">Tipo*</label>
+                                <select class="form-control select2" id="tipo-select" required th:field="${cliente.tipo}">
                                     <option th:text="Física" th:value="F"></option>
                                     <option th:text="Jurídica" th:value="J"></option>
                                 </select>
                             </div>
-                            <div>
-                                <div class="fisica" style="margin-left: 50px;">
-                                    <label class="col-form-label" for="cpf">CPF</label>
-                                    <input class="form-control cpf-inputmask" id="cpf" th:field="*{cnpj}" th:type="text">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <div class="fisica">
+                                    <label class="col-form-label" for="cpf">CPF*</label>
+                                    <input class="form-control cpf-inputmask" id="cpf" th:field="${cliente.cnpj}" th:type="text">
                                 </div>
 
-                                <div class="juridica" style="margin-left: 50px;">
-                                    <label class="col-form-label" for="cnpj">CNPJ</label>
-                                    <input class="form-control cnpj-inputmask" id="cnpj" th:field="*{cnpj}" th:type="text">
+                                <div class="juridica">
+                                    <label class="col-form-label" for="cnpj">CNPJ*</label>
+                                    <input class="form-control cnpj-inputmask" id="cnpj" th:field="${cliente.cnpj}" th:type="text">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group juridica">
-                            <label class="col-form-label" for="razaoSocial">Razão Social</label>
-                            <input class="form-control" id="razaoSocial" th:field="*{razaoSocial}" th:type="text">
+                            <label class="col-form-label" for="razaoSocial">Razão Social*</label>
+                            <input class="form-control" id="razaoSocial" th:field="${cliente.razaoSocial}" th:type="text">
                         </div>
 
                         <div class="form-group fisica">
-                            <label class="col-form-label" for="nome">Nome</label>
-                            <input class="form-control" id="nome" th:field="*{nomeFantasia}" th:type="text">
+                            <label class="col-form-label" for="nome">Nome*</label>
+                            <input class="form-control" id="nome" th:field="${cliente.nomeFantasia}" th:type="text">
                         </div>
 
                         <div class="form-group juridica">
-                            <label class="col-form-label" for="nomeFantasia">Nome Fantasia</label>
-                            <input class="form-control" id="nomeFantasia" th:field="*{nomeFantasia}" th:type="text">
+                            <label class="col-form-label" for="nomeFantasia">Nome Fantasia*</label>
+                            <input class="form-control" id="nomeFantasia" th:field="${cliente.nomeFantasia}" th:type="text">
                         </div>
 
                         <div class="form-group juridica">
-                            <label class="col-form-label" for="inscricaoEstadual">Inscrição Estadual</label>
+                            <label class="col-form-label" for="inscricaoEstadual">Inscrição Estadual*</label>
                             <input class="form-control insc-estadual-inputmask" id="inscricaoEstadual"
-                                   th:field="*{inscricaoEstadual}" th:type="text">
+                                   th:field="${cliente.inscricaoEstadual}" th:type="text">
                         </div>
 
                         <div class="form-group">
-                            <label class="col-form-label" for="email">Email</label>
-                            <input class="form-control" id="email" required th:field="*{email}" th:type="email">
+                            <label class="col-form-label" for="email">Email*</label>
+                            <input class="form-control" id="email" required th:field="${cliente.email}" th:type="email">
                         </div>
 
-                        <div class="form-group" style="display: flex; flex-direction: row;">
-                            <div style="max-width: 80px;">
-                                <label class="col-form-label" for="ddd">DDD</label>
-                                <input class="form-control" id="ddd" th:field="*{dddTelefone}" th:type="number" th:max="99">
+                        <div class="form-row" style="margin-bottom: 12px">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" style="max-width: 30%">
+                                <label class="col-form-label" for="ddd">DDD*</label>
+                                <input class="form-control" id="ddd" th:field="${cliente.dddTelefone}" th:type="number" th:max="99">
                             </div>
-                            <div style="margin-left: 50px;">
-                                <label class="col-form-label" for="telefone">Telefone</label>
-                                <input class="form-control" id="telefone"  th:field="*{telefone}" th:type="number"
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" style="min-width: 70%">
+                                <label class="col-form-label" for="telefone">Telefone*</label>
+                                <input class="form-control" id="telefone"  th:field="${cliente.telefone}" th:type="number"
                                        th:max="999999999">
                             </div>
                         </div>
 
-                        <div class="form-group" style="display: flex; flex-direction: row;">
-                            <div>
-                                <label for="bloqueado-select">Bloqueado</label>
-                                <select class="form-control" id="bloqueado-select" required th:field="*{bloqueado}">
+                        <div class="form-row" style="margin-bottom: 12px">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label for="bloqueado-select">Restrição</label>
+                                <select class="form-control select2" id="bloqueado-select" required th:field="${cliente.bloqueado}">
                                     <option th:text="Sim" th:value="True"></option>
                                     <option th:text="Não" th:value="False"></option>
                                 </select>
                             </div>
-                            <div class="form-group" th:if="${cliente.bloqueado == true}" style="margin-left: 50px;">
-                                <label>Data do último bloqueio</label>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" th:if="${cliente.bloqueado == true}">
+                                <label>Data da Restrição</label>
                                 <input class="form-control" disabled
                                        th:value="${#dates.format(cliente.datUltBloqueio, 'dd/MM/yyyy hh:mm')}">
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" style="min-width: 80%">
+                                <label class="col-form-label" for="rua">Logradouro*</label>
+                                <input class="form-control" id="rua" required th:field="${cliente.endereco.rua}" th:type="text">
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" style="max-width: 20%">
+                                <label class="col-form-label" for="numero">Número*</label>
+                                <input class="form-control" id="numero" required th:field="${cliente.endereco.numero}" th:type="number">
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-bottom: 12px">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="bairro">Bairro*</label>
+                                <input class="form-control" id="bairro" required th:field="${cliente.endereco.bairro}" th:type="text">
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="cep">CEP*</label>
+                                <input class="form-control cep-inputmask" required id="cep" th:field="${cliente.endereco.cep}" th:type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-bottom: 12px">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="uf">UF*</label>
+                                <input class="form-control" id="uf" required th:field="${cliente.endereco.uf}" th:type="text">
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="cidade">Cidade*</label>
+                                <input class="form-control" id="cidade" required th:field="${cliente.endereco.cidade}" th:type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="complemento">Complemento</label>
+                            <input class="form-control" id="complemento" th:field="${cliente.endereco.complemento}" th:type="text">
+                        </div>
 
                     <div class="card-footer">
                         <a class="btn secondary pull-right" href="/clientes">Voltar</a>

@@ -14,7 +14,7 @@ $(function(e) {
 });
 
 $(document).ready(function () {
-    if(document.getElementById('tipo-select').value === 'F') {
+    if($('#tipo-select').val() === 'F') {
         $('.fisica').show();
 
         $('.juridica').hide();

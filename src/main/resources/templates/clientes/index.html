@@ -10,7 +10,7 @@
 
 <section>
     <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
             <div class="card">
                 <form>
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -18,8 +18,8 @@
                         <a class="btn btn-primary pull-right" href="/clientes/view">Criar Novo</a>
                     </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table">
+                        <div class="table-responsive" style="padding: 20px 10px">
+                            <table class="table data-table-default table-striped table-bordered">
                                 <thead class="bg-light">
                                 <tr class="border-0">
                                     <th class="border-0">#</th>
@@ -27,10 +27,9 @@
                                     <th class="border-0">CPF/CNPJ</th>
                                     <th class="border-0">Razão Social</th>
                                     <th class="border-0">Nome/Nome Fantasia</th>
-                                    <th class="border-0">Email</th>
                                     <th class="border-0">Telefone</th>
-                                    <th class="border-0">Bloqueado</th>
-                                    <th class="border-0">Data de Bloqueio</th>
+                                    <th class="border-0">Restrição</th>
+                                    <th class="border-0">Ações</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -39,18 +38,18 @@
                                 </tr>
                                 <tr th:style="${cliente.bloqueado} ? ${'color: red;'}" th:each="cliente: ${clientes}">
                                     <td th:text="${cliente.id}"></td>
-                                    <td th:text="${cliente.tipo == 'F' ? 'PF' : 'PJ'}"></td>
-                                    <td th:text="${cliente.cnpj}"></td>
+                                    <td th:text="${cliente.tipo.name() == 'F' ? 'PF' : 'PJ'}"></td>
+                                    <td th:if="${cliente.tipo.name() == 'F'}" class="cpf-inputmask" th:text="${cliente.cnpj}"></td>
+                                    <td th:unless="${cliente.tipo.name() == 'F'}" class="cnpj-inputmask" th:text="${cliente.cnpj}"></td>
                                     <td th:text="${cliente.razaoSocial}"></td>
                                     <td th:text="${cliente.nomeFantasia}"></td>
-                                    <td th:text="${cliente.email}"></td>
                                     <td th:text="${'(' + cliente.dddTelefone + ') ' + cliente.telefone}"></td>
                                     <td th:text="${cliente.bloqueado ? 'Sim' : 'Não'}"></td>
-                                    <td th:text="${cliente.datUltBloqueio != null ? #dates.format(cliente.datUltBloqueio, 'dd/MM/yyyy HH:mm') : '-'}"></td>
                                     <td><a class="btn btn-secondary btn-small"
-                                           th:href="@{'/clientes/view?id=' + ${cliente.id}}">Editar</a>
-                                        <button class="btn btn-danger btn-small delete-clientes-btn" type="button"
-                                                th:attr="data-id=${cliente.id}">Excluir
+                                           th:href="@{'/clientes/view?id=' + ${cliente.id}}"
+                                           style="background-color: #0998b0; border-color: #0998b0;">Editar</a>
+                                        <button class="btn btn-danger btn-small delete-item-btn" type="button"
+                                                th:attr="data-id=${cliente.id}" data-url="/clientes">Excluir
                                         </button>
                                     </td>
                                 </tr>

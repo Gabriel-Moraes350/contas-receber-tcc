@@ -10,7 +10,7 @@
 
 <section>
     <div class="row">
-        <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
             <div class="card">
                 <form>
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -18,43 +18,44 @@
                         <a class="btn btn-primary pull-right" href="/contas-receber/view">Criar Novo</a>
                     </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table">
+                        <div class="table-responsive" style="padding: 20px 10px">
+                            <table class="table data-table-default table-striped table-bordered">
                                 <thead class="bg-light">
                                 <tr class="border-0">
-                                    <th class="border-0"></th>
                                     <th class="border-0">#</th>
                                     <th class="border-0">Status</th>
                                     <th class="border-0">Cliente</th>
+                                    <th class="border-0">CPF/CNPJ</th>
+                                    <th class="border-0">Serviço Prestado</th>
                                     <th class="border-0">Valor Total</th>
-                                    <th class="border-0">Data Criação</th>
+                                    <th class="border-0">Data Vencimento</th>
                                     <th class="border-0">Ações</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:if="${contasReceber.empty}">
-                                    <td colspan="2"> Não há contas a receber</td>
+                                    <td colspan="10"> Não há contas a receber</td>
                                 </tr>
                                 <tr th:each="conta: ${contasReceber}">
-                                    <td>
-                                        <label class="custom-control custom-checkbox">
-                                            <input checked="" class="custom-control-input" name="select-contas"
-                                                   th:id="${conta.id}" type="checkbox">
-                                            <span class="custom-control-label"></span>
-                                        </label>
-                                    </td>
                                     <td th:text="${conta.id}"></td>
-                                    <td th:text="${conta.status}">
+                                    <td th:text="${#strings.capitalize(conta.status)}">
                                     </td>
                                     <td th:text="${conta.cliente.nomeFantasia}"></td>
+                                    <td th:if="${conta.cliente.tipo.name() == 'F'}" class="cpf-inputmask"
+                                        th:text="${conta.cliente.cnpj}"></td>
+                                    <td th:unless="${conta.cliente.tipo.name() == 'F'}" class="cnpj-inputmask"
+                                        th:text="${conta.cliente.cnpj}"></td>
+                                    <td th:text="${conta.tipoServicoPrestado.description}">
+                                    </td>
                                     <td>R$<span
                                             th:text="${#numbers.formatDecimal(conta.valorTotal, 2, 2, 'COMMA')}"></span>
                                     </td>
-                                    <td th:text="${#temporals.format(conta.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
+                                    <td th:text="${#temporals.format(conta.dataVencimento, 'dd/MM/yyyy')}"></td>
                                     <td><a class="btn btn-secondary btn-small"
-                                           th:href="@{'/contas-receber/view?id=' + ${conta.id}}">Editar</a>
-                                        <button class="btn btn-danger btn-small delete-contas-btn" type="button"
-                                                th:attr="data-id=${conta.id}">Excluir
+                                           th:href="@{'/contas-receber/view?id=' + ${conta.id}}"
+                                           style="background-color: #0998b0; border-color: #0998b0;">Editar</a>
+                                        <button class="btn btn-danger btn-small delete-item-btn" type="button"
+                                                th:attr="data-id=${conta.id}" data-url="/contas-receber">Excluir
                                         </button>
                                     </td>
                                 </tr>

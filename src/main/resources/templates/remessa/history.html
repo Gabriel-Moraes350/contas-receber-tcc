@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico Remessa</title>
+</head>
+<body>
+
+
+<section>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <form>
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5>Histórico remessas</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive" style="padding: 20px 10px">
+                            <table class="table data-table-default table-striped table-bordered">
+                                <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th class="border-0">#</th>
+                                    <th class="border-0">Nome</th>
+                                    <th class="border-0">Data de Geração</th>
+                                    <th class="border-0">Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${remessas.empty}">
+                                    <td colspan="10"> Não há remessas</td>
+                                </tr>
+                                <tr th:each="remessa: ${remessas}">
+                                    <td th:text="${remessa.id}"></td>
+                                    <td th:text="${remessa.name}"></td>
+                                    <td th:text="${#temporals.format(remessa.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                                    <td><a class="btn btn-secondary btn-small"
+                                           th:href="@{'/remessa/file/' + ${remessa.id}}">Download</a>
+                                        <a href="#" class="btn btn-primary btn-details-remessa" th:attr="data-id=${remessa.id}" data-toggle="modal" data-target="#detailsModal">Ver Detalhes</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModal" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="min-width: 600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalhes</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+                            <div class="table-responsive" style="padding: 20px 10px">
+                                <table class="table modal-data-table table-striped table-bordered">
+                                    <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">Conta Receber</th>
+                                        <th class="border-0">Valor total a receber(R$)</th>
+                                        <th class="border-0">Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="remessa-table-body">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-secondary" data-dismiss="modal">Fechar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

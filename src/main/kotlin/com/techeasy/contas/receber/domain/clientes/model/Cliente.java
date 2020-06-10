@@ -1,14 +1,10 @@
 package com.techeasy.contas.receber.domain.clientes.model;
 
+import com.techeasy.contas.receber.domain.clientes.Endereco;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.Date;
 
@@ -23,7 +19,8 @@ public class Cliente {
 
     private String cnpj;
 
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private TipoCliente tipo;
 
     @Column(name = "nome_fantasia")
     private String nomeFantasia;
@@ -46,4 +43,10 @@ public class Cliente {
 
     @Column(name = "dat_ult_bloqueio")
     private Date datUltBloqueio;
+
+    @Column(name = "delete_date")
+    private Date deleteDate;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Endereco endereco;
 }

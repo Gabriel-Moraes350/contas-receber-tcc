@@ -23,3 +23,9 @@ spring:
     change-log: 'classpath:/db/changelog-master.xml'
   thymeleaf:
     cache: false
+
+
+server:
+  servlet:
+    session:
+      timeout: 120000m

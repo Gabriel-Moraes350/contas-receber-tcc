@@ -15,4 +15,5 @@ $(function(e) {
     $(".cnpj-inputmask").inputmask("99.999.999/9999-99", { "placeholder": "00.000.000/0000-00" });
     $(".cpf-inputmask").inputmask("999.999.999-99", { "placeholder": "000.000.000-00" });
     $(".insc-estadual-inputmask").inputmask("999.999.999.999", { "placeholder": "000.000.000.000" });
+    $(".cep-inputmask").inputmask("99.999-999", { "placeholder": "00.000-000" });
 });

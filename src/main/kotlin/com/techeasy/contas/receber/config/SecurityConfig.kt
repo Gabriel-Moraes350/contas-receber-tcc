@@ -36,8 +36,15 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .permitAll().and().logout()
                 .logoutRequestMatcher(AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login").permitAll()
+                .and()
+                .rememberMe()
+                .alwaysRemember(true)
+                .tokenValiditySeconds(30*5)
+                .rememberMeCookieName("mouni")
+                .key("somesecret")
         http.sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+
     }
 
     @Throws(Exception::class)
