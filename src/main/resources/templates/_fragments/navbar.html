@@ -41,18 +41,18 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-column">
                         <li class="nav-item ">
-                            <a class="nav-link" th:href="@{'/clientes'}"><i class="fa fa-fw fa-user-circle"></i>Gerenciar Cliente <span
+                            <a class="nav-link" th:href="@{'/clientes'}"><i class="fa fa-fw fa-user-circle"></i>Clientes<span
                                     class="badge badge-success">6</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-fw fa-id-card-alt"></i>Gerenciar Usuarios</a>
+                            <a class="nav-link" href="#"><i class="fas fa-fw fa-id-card-alt"></i>Usuarios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{'/contas-receber'}" href="#"><i class="fa fa-fw fa-file-archive"></i>Gerenciar Contas</a>
+                            <a class="nav-link" th:href="@{'/contas-receber'}" href="#"><i class="fa fa-fw fa-file-archive"></i>Contas</a>
                         </li>
                         <li class="nav-item">
                             <a aria-controls="submenu-1" aria-expanded="false" class="nav-link" data-target="#submenu-1"
-                               data-toggle="collapse" href="#"><i class="fas fa-fw fa-barcode"></i>Gerenciar
+                               data-toggle="collapse" href="#"><i class="fas fa-fw fa-barcode"></i>
                                 Arquivos</a>
                             <div class="collapse submenu" id="submenu-1" style="">
                                 <ul class="nav flex-column">
@@ -83,10 +83,10 @@
                             <div class="collapse submenu" id="submenu-2" style="">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Comunicar Cliente</a>
+                                        <a class="nav-link" th:href="@{'/comunicacao-cliente'}">Comunicar Cliente</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/beneficios">Gerenciar Beneficios</a>
+                                        <a class="nav-link" href="/beneficios">Beneficios</a>
                                     </li>
                                 </ul>
                             </div>

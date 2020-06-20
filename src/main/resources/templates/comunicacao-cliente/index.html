@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comunicaçao com Cliente</title>
+</head>
+<body>
+<section>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <form>
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5>Comunicacao com Cliente</h5>
+                        <a class="btn btn-primary pull-right" href="/comunicacao-cliente/view">Criar Novo</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive" style="padding: 20px 10px">
+                            <table class="table data-table-default table-striped table-bordered">
+                                <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th class="border-0">#</th>
+                                    <th class="border-0">Cliente</th>
+                                    <th class="border-0">Email</th>
+                                    <th class="border-0">Motivo</th>
+                                    <th class="border-0">Data Envio</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${comunicacaoCliente.empty}">
+                                    <td colspan="2"> Não há nenhum registro de email</td>
+                                </tr>
+                                <tr th:each="comunicacao: ${comunicacaoCliente}">
+                                    <td th:text="${comunicacao.id}"></td>
+                                    <td th:text="${comunicacao.cliente.cnpj}"></td>
+                                    <td th:text="${comunicacao.cliente.email}"></td>
+                                    <td th:text="${comunicacao.motivoComunicacao}"></td>
+                                    <td th:text="${#dates.format(comunicacao.dataEnvio, 'dd-MM-yyyy')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+</body>

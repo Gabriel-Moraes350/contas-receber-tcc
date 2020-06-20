@@ -23,8 +23,20 @@ spring:
     change-log: 'classpath:/db/changelog-master.xml'
   thymeleaf:
     cache: false
-
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    username: techeasy.suporte@gmail.com
+    password: Levizera100
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          quitwait: false
 server:
   servlet:
     session:

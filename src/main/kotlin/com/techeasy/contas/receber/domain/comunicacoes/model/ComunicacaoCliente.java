@@ -1,4 +1,4 @@
-package com.techeasy.contas.receber.domain.comunicacoes;
+package com.techeasy.contas.receber.domain.comunicacoes.model;
 
 import com.techeasy.contas.receber.domain.clientes.model.Cliente;
 import lombok.Data;
@@ -20,10 +20,9 @@ public class ComunicacaoCliente {
     @JoinColumn(name = "cod_cliente")
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "cod_motivo_comunicacao")
-    private MotivoComunicacao motivoComunicacao;
+    @Column(name = "motivo_comunicacao")
+    private String motivoComunicacao;
 
     @Column(name = "dt_envio")
-    private Date dataEnvio;
+    private Date dataEnvio = new Date();
 }

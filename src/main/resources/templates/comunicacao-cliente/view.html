@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comunicaçao com Cliente</title>
+</head>
+<body>
+<section>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header ">Comunicaçao com Cliente</h5>
+                <form
+                      th:object="${comunicacaoCliente}">
+
+                    <input class="form-control" name="id" th:field="*{id}" th:type="hidden">
+
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                                <div th:each="detailedError : ${#fields.detailedErrors()}">
+                                    <span th:text="${detailedError.message}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cliente-select">Clientes</label>
+                            <select class="form-control" required th:field="*{cliente}" id="cliente-select">
+                                <option th:each="cliente : ${clientes}" th:text="${cliente.nomeFantasia}"
+                                        th:value="${cliente.id}" th:attr="data-id=${cliente.nomeFantasia}"
+                                data-target="#cachorra"></option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label for="motivo-select">Motivo da Comunicaçao</label>
+                                <select class="form-control" id="motivo-select" th:field="*{motivoComunicacao}">
+                                    <option th:each="motivo : ${motivoComunicacao}" th:text="${motivo}"
+                                            th:value="${motivo}"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" th:if="${comunicacaoCliente.dataEnvio != null}">
+                                <label>Data de Envio</label>
+                                <input class="form-control" disabled
+                                       th:value="${#dates.format(comunicacaoCliente.dataEnvio, 'dd-MM-yyyy')}"
+                                       type="text">
+                            </div>
+                        </div>
+                        <hr>
+                        <label>Contas disponveis para envio</label>
+                        <div class="contas-cliente-motivo">
+                            <table class="table contas-data-table table-striped table-bordered">
+                                <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th class="border-0"></th>
+                                    <th class="border-0">id</th>
+                                    <th class="border-0">CNPJ/CPF</th>
+                                    <th class="border-0">Data Vencimento</th>
+                                    <th class="border-0">Valor total a receber(R$)</th>
+                                    <th class="border-0">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody class="contas-table-body">
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-footer mt-1">
+                            <a class="btn secondary pull-right" href="/comunicacao-cliente">Voltar</a>
+                            <button class="btn btn-primary pull-left" type="submit" id="btn-enviar">Enviar Email</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
