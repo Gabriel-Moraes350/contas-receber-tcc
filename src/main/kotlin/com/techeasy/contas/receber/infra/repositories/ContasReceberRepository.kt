@@ -1,12 +1,15 @@
 package com.techeasy.contas.receber.infra.repositories
 
+import com.techeasy.contas.receber.domain.clientes.model.Cliente
 import com.techeasy.contas.receber.domain.contasreceber.model.ContasReceber
+import com.techeasy.contas.receber.domain.contasreceber.model.StatusRecebimento
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import java.time.OffsetDateTime
+import java.util.*
 
 @Repository
 interface ContasReceberRepository : JpaRepository<ContasReceber, Long> {
@@ -32,4 +35,15 @@ interface ContasReceberRepository : JpaRepository<ContasReceber, Long> {
 
     @Query("select c from ContasReceber c where deletedAt is null")
     fun findAllExceptDeleted(): List<ContasReceber>
+
+    @Query("select c from ContasReceber c where c.cliente = :cliente and c.dataCriacao between :dataInicio and :dataFim and c.status = :status and deletedAt is null")
+    fun findAllByClientePago(cliente: Cliente, dataInicio: OffsetDateTime, dataFim: OffsetDateTime, status: StatusRecebimento): List<ContasReceber>
+
+    @Query("select c from ContasReceber c where c.cliente = :cliente and c.dataCriacao between :dataInicio and :dataFim and " +
+            "(c.status = 'enviado' or c.status = 'aguardando') and c.dataVencimento >= CURRENT_DATE and deletedAt is null")
+    fun findAllByClienteAvencer(cliente: Cliente, dataInicio: OffsetDateTime, dataFim: OffsetDateTime): List<ContasReceber>
+
+    @Query("select c from ContasReceber c where c.cliente = :cliente and c.dataCriacao between :dataInicio and :dataFim and " +
+            "(c.status = 'enviado' or c.status = 'aguardando') and c.dataVencimento < CURRENT_DATE and deletedAt is null")
+    fun findAllByClienteVencido(cliente: Cliente, dataInicio: OffsetDateTime, dataFim: OffsetDateTime): List<ContasReceber>
 }

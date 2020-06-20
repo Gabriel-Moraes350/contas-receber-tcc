@@ -35,7 +35,9 @@ $(document).ready( function () {
                 next: "Próximo"
             },
             search: "Buscar",
-            info: "Exibindo página _PAGE_ de _PAGES_"
+            info: "Exibindo página _PAGE_ de _PAGES_",
+            sEmptyTable: "Preencha os campos acima/Consulta não encontrou dados.",
+            sInfoEmpty: "",
          }
     });
 

@@ -1,6 +1,6 @@
 $(function(e) {
 
-    $(".date-inputmask").inputmask("99/99/9999", { "placeholder": "dd/mm/yyyy" });
+    $(".date-inputmask").inputmask("99/99/9999", { "placeholder": "dd/mm/aaaa" });
     $(".currency").inputmask("decimal", { 'alias': 'numeric',
                 'groupSeparator': ',',
                 'autoGroup': true,

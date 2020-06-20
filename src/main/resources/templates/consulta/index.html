@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:replace="_structure/layout :: layout(~{::title}, ~{::section})"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+</head>
+<body>
+
+
+<section>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <form>
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5>Consulta de Contas a Receber</h5>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <ul class="nav nav-tabs mt-1" id="myTabs">
+                                    <li class="nav-item"><a href="#Pagos" id="pago" class="nav-link tipo-filtro active">Pagos</a></li>
+                                    <li class="nav-item"><a href="#Avencer" id="avencer" class="nav-link tipo-filtro">A Vencer</a></li>
+                                    <li class="nav-item"><a href="#Vencidos" id="vencidos" class="nav-link tipo-filtro">Vencidos</a></li>
+                                </ul>
+
+                                <div class="tab-content pt-3">
+                                    <div class="tab-pane active" id="tab1">
+                                        <div>
+                                            <div class="form-row">
+                                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 w-auto">
+                                                    <label for="input-select">Cliente</label>
+                                                    <select class="form-control select2" id="input-select" required>
+                                                        <option th:each="cliente : ${clientes}"
+                                                                th:text="${cliente.nomeFantasia + ' - (' + cliente.cnpj + ')'}"
+                                                                th:value="${cliente.id}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="m-l-20"  style="width: 140px">
+                                                    <label>Data Início (Criação)</label>
+                                                    <input class="form-control date-inputmask" id="inicio" required
+                                                           type="text">
+                                                </div>
+                                                <div class="m-l-20" style="width: 140px">
+                                                    <label>Data Fim (Criação)</label>
+                                                    <input class="form-control date-inputmask" id="fim" required
+                                                           type="text">
+                                                </div>
+                                                <div class="m-l-20 m-t-20" style="width: 120px">
+                                                    <button class="btn btn-primary btn-small pull-right consultar-btn"
+                                                            data-url="/consultas" type="button">Consultar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <div class="table-responsive" style="padding: 20px 10px">
+                                                <table class="table data-table-default table-striped table-bordered"
+                                                       id="dataTableConta">
+                                                    <thead class="bg-light">
+                                                    <tr class="border-0">
+                                                        <th class="border-0">#</th>
+                                                        <th class="border-0">Status</th>
+                                                        <th class="border-0">Cliente</th>
+                                                        <th class="border-0">CPF/CNPJ</th>
+                                                        <th class="border-0">Serviço Prestado</th>
+                                                        <th class="border-0">Valor Total</th>
+                                                        <th class="border-0">Data Vencimento</th>
+                                                        <th class="border-0">Ações</th>
+                                                    </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab2">A Vencer</div>
+                                    <div class="tab-pane" id="tab3">Vencidos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('#myTabs a').click(function (e) {
+        e.preventDefault();
+
+        console.log($(this));
+        alert("click");
+        let element = document.getElementById("tab1");
+        element.classList.add("active");
+        element = document.getElementById("tab2");
+        element.classList.remove("active");
+    });
+</script>
+
+</body>
+</html>
