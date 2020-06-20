@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Contas a receber</title>
+    <title>Beneficios</title>
 </head>
 <body>
 
@@ -14,8 +14,8 @@
             <div class="card">
                 <form>
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5>Contas a Receber</h5>
-                        <a class="btn btn-primary pull-right" href="/contas-receber/view">Criar Novo</a>
+                        <h5>Beneficios</h5>
+                        <a class="btn btn-primary pull-right" href="/beneficios/view">Criar Novo</a>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive" style="padding: 20px 10px">
@@ -23,44 +23,38 @@
                                 <thead class="bg-light">
                                 <tr class="border-0">
                                     <th class="border-0">#</th>
-                                    <th class="border-0">Status</th>
-                                    <th class="border-0">Número Documento</th>
                                     <th class="border-0">Cliente</th>
                                     <th class="border-0">CPF/CNPJ</th>
-                                    <th class="border-0">Serviço Prestado</th>
-                                    <th class="border-0">Valor Total</th>
-                                    <th class="border-0">Data Vencimento</th>
+                                    <th class="border-0">Descrição</th>
+                                    <th class="border-0">Desconto</th>
+                                    <th class="border-0">Data Validade</th>
                                     <th class="border-0">Ações</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:if="${contasReceber.empty}">
-                                    <td colspan="10"> Não há contas a receber</td>
+                                <tr th:if="${beneficios.empty}">
+                                    <td colspan="10"> Não há beneficios</td>
                                 </tr>
-                                <tr th:each="conta: ${contasReceber}">
-                                    <td th:text="${conta.id}"></td>
-                                    <td th:text="${#strings.capitalize(conta.status)}">
-                                    </td>
-                                    <td th:text="${conta.numDocumento}">
-                                    </td>
-                                    <td th:text="${conta.cliente.nomeFantasia}"></td>
-                                    <td th:if="${conta.cliente.tipo.name() == 'F'}" class="cpf-inputmask"
-                                        th:text="${conta.cliente.cpf}"></td>
-                                    <td th:unless="${conta.cliente.tipo.name() == 'F'}" class="cnpj-inputmask"
-                                        th:text="${conta.cliente.cnpj}"></td>
-                                    <td th:text="${conta.tipoServicoPrestado.description}">
+                                <tr th:each="beneficio: ${beneficios}">
+                                    <td th:text="${beneficio.id}"></td>
+                                    <td th:text="${beneficio.cliente.nomeFantasia}"></td>
+                                    <td th:if="${beneficio.cliente.tipo.name() == 'F'}" class="cpf-inputmask"
+                                        th:text="${beneficio.cliente.cpf}"></td>
+                                    <td th:unless="${beneficio.cliente.tipo.name() == 'F'}" class="cnpj-inputmask"
+                                        th:text="${beneficio.cliente.cnpj}"></td>
+                                    <td th:text="${beneficio.descricao.description}">
                                     </td>
                                     <td>R$<span
-                                            th:text="${#numbers.formatDecimal(conta.valorTotal, 2, 2, 'COMMA')}"></span>
+                                            th:text="${#numbers.formatDecimal(beneficio.valorDesconto, 2, 2, 'COMMA')}"></span>
                                     </td>
-                                    <td th:text="${#temporals.format(conta.dataVencimento, 'dd/MM/yyyy')}"></td>
+                                    <td th:text="${#temporals.format(beneficio.dtValidade, 'dd/MM/yyyy')}"></td>
                                     <td>
                                         <div class="d-flex align-items-center justify-content-space-between" style="flex-direction: row">
                                             <a class="btn btn-secondary btn-small mr-1"
-                                               th:href="@{'/contas-receber/view?id=' + ${conta.id}}"
+                                               th:href="@{'/beneficios/view?id=' + ${beneficio.id}}"
                                                style="background-color: #0998b0; border-color: #0998b0;">Editar</a>
                                             <button class="btn btn-danger btn-small delete-item-btn" type="button"
-                                                    th:attr="data-id=${conta.id}" data-url="/contas-receber">Excluir
+                                                    th:attr="data-id=${beneficio.id}" data-url="/beneficios">Excluir
                                             </button>
                                         </div>
 

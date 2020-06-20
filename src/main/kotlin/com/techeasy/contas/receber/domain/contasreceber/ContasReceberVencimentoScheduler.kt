@@ -19,7 +19,7 @@ class ContasReceberVencimentoScheduler(val contasReceberRepo: ContasReceberRepos
     }
 
     @Async
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 60000)
     @Transactional
     fun updateContasVencidas() {
         log.info("Atualizando contas vencidas")
