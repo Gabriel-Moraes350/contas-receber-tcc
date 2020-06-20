@@ -1,6 +1,5 @@
 package com.techeasy.contas.receber.infra.repositories
 
-import com.techeasy.contas.receber.domain.clientes.model.Cliente
 import com.techeasy.contas.receber.domain.contasreceber.model.ContasReceber
 import com.techeasy.contas.receber.domain.contasreceber.model.StatusRecebimento
 import org.springframework.data.jpa.repository.JpaRepository
@@ -9,7 +8,6 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import java.time.OffsetDateTime
-import java.util.*
 
 @Repository
 interface ContasReceberRepository : JpaRepository<ContasReceber, Long> {
@@ -36,16 +34,18 @@ interface ContasReceberRepository : JpaRepository<ContasReceber, Long> {
     @Query("select c from ContasReceber c where deletedAt is null")
     fun findAllExceptDeleted(): List<ContasReceber>
 
-    @Query("select c from ContasReceber c where c.cliente = :cliente and c.dataCriacao between :dataInicio and :dataFim and c.status = :status and deletedAt is null")
-    fun findAllByClientePago(cliente: Cliente, dataInicio: OffsetDateTime, dataFim: OffsetDateTime, status: StatusRecebimento): List<ContasReceber>
+    @Query("select * from contas_receber c where c.cliente_id = :clienteId and c.data_criacao between :dataInicio and :dataFim and c.status = 'pago' and deleted_at is null", nativeQuery = true)
+    fun findAllByClientePago(clienteId: Long, dataInicio: OffsetDateTime, dataFim: OffsetDateTime): List<ContasReceber>
 
-    @Query("select c from ContasReceber c where c.cliente = :cliente and c.dataCriacao between :dataInicio and :dataFim and " +
-            "(c.status = 'enviado' or c.status = 'aguardando') and c.dataVencimento >= CURRENT_DATE and deletedAt is null")
-    fun findAllByClienteAvencer(cliente: Cliente, dataInicio: OffsetDateTime, dataFim: OffsetDateTime): List<ContasReceber>
+    @Query("select * from contas_receber c where c.cliente_id = :clienteId and c.data_criacao between :dataInicio and :dataFim and " +
+            "(c.status = 'enviado' or c.status = 'aguardando') and c.data_vencimento >= now() and deleted_at is null", nativeQuery = true)
+    fun findAllPendentesByCliente(clienteId: Long, dataInicio: OffsetDateTime, dataFim: OffsetDateTime): List<ContasReceber>
 
-    @Query("select c from ContasReceber c where c.cliente = :cliente and c.dataCriacao between :dataInicio and :dataFim and " +
-            "(c.status = 'enviado' or c.status = 'aguardando') and c.dataVencimento < CURRENT_DATE and deletedAt is null")
-    fun findAllByClienteVencido(cliente: Cliente, dataInicio: OffsetDateTime, dataFim: OffsetDateTime): List<ContasReceber>
+    @Query(value = """
+        select * from contas_receber c where c.cliente_id = :clienteId and c.data_criacao between :dataInicio and :dataFim and 
+            (c.status = 'enviado' or c.status = 'aguardando') and c.data_vencimento < now() and deleted_at is null
+    """, nativeQuery = true)
+    fun findAllByClienteVencido(clienteId: Long, dataInicio: OffsetDateTime, dataFim: OffsetDateTime): List<ContasReceber>
 
     @Modifying
     @Query("update contas_receber set status = :status where deleted_at is null and data_vencimento <= now()  and status != 'pago' ",nativeQuery = true)

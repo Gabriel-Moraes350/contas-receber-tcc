@@ -17,9 +17,7 @@
                             Cadastro de cliente<br>
                             <i>Campos com * são obrigatórios</i>
                         </p>
-
                         <input class="form-control" name="id" th:field="${cliente.id}" th:type="hidden">
-
                         <div class="form-row">
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                 <label class="col-form-label" for="tipo-select">Tipo*</label>
@@ -40,31 +38,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group juridica col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="razaoSocial">Razão Social*</label>
+                                <input class="form-control" id="razaoSocial" th:field="${cliente.razaoSocial}" th:type="text">
+                            </div>
 
-                        <div class="form-group juridica">
-                            <label class="col-form-label" for="razaoSocial">Razão Social*</label>
-                            <input class="form-control" id="razaoSocial" th:field="${cliente.razaoSocial}" th:type="text">
+                            <div class="form-group juridica col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="inscricaoEstadual">Inscrição Estadual*</label>
+                                <input class="form-control insc-estadual-inputmask" id="inscricaoEstadual"
+                                       th:field="${cliente.inscricaoEstadual}" th:type="text">
+                            </div>
                         </div>
 
-                        <div class="form-group fisica">
-                            <label class="col-form-label" for="nome">Nome*</label>
-                            <input class="form-control" id="nome" th:field="${cliente.nomeFantasia}" th:type="text">
-                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="email">Email*</label>
+                                <input class="form-control" id="email" required th:field="${cliente.email}" th:type="email">
+                            </div>
 
-                        <div class="form-group juridica">
-                            <label class="col-form-label" for="nomeFantasia">Nome Fantasia*</label>
-                            <input class="form-control" id="nomeFantasia" th:field="${cliente.nomeFantasia}" th:type="text">
-                        </div>
+                            <div class="form-group fisica col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="nome">Nome*</label>
+                                <input class="form-control" id="nome" th:field="${cliente.nomeFantasia}" th:type="text">
+                            </div>
 
-                        <div class="form-group juridica">
-                            <label class="col-form-label" for="inscricaoEstadual">Inscrição Estadual*</label>
-                            <input class="form-control insc-estadual-inputmask" id="inscricaoEstadual"
-                                   th:field="${cliente.inscricaoEstadual}" th:type="text">
-                        </div>
+                            <div class="form-group juridica col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <label class="col-form-label" for="nomeFantasia">Nome Fantasia*</label>
+                                <input class="form-control" id="nomeFantasia" th:field="${cliente.nomeFantasia}" th:type="text">
+                            </div>
 
-                        <div class="form-group">
-                            <label class="col-form-label" for="email">Email*</label>
-                            <input class="form-control" id="email" required th:field="${cliente.email}" th:type="email">
                         </div>
 
                         <div class="form-row" style="margin-bottom: 12px">

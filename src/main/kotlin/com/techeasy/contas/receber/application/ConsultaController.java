@@ -3,18 +3,13 @@ package com.techeasy.contas.receber.application;
 import com.techeasy.contas.receber.domain.clientes.ClienteServiceImpl;
 import com.techeasy.contas.receber.domain.clientes.model.Cliente;
 import com.techeasy.contas.receber.domain.contasreceber.model.ContasReceber;
-import com.techeasy.contas.receber.domain.contasreceber.model.StatusRecebimento;
 import com.techeasy.contas.receber.infra.repositories.ContasReceberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
@@ -59,17 +54,14 @@ public class ConsultaController {
 
         OffsetDateTime dataInicio = ZonedDateTime.parse(inicio, FORMAT).toOffsetDateTime();
         OffsetDateTime dataFim = ZonedDateTime.parse(fim, FORMAT).toOffsetDateTime();
-        Cliente cliente = new Cliente();
-        cliente.setId(idCliente);
 
         switch (status) {
             case "pago":
-                return new ResponseEntity<>(contasReceberRepository.findAllByClientePago(cliente, dataInicio, dataFim,
-                        StatusRecebimento.valueOf(status)), HttpStatus.OK);
+                return new ResponseEntity<>(contasReceberRepository.findAllByClientePago(idCliente, dataInicio, dataFim), HttpStatus.OK);
             case "avencer":
-                return new ResponseEntity<>(contasReceberRepository.findAllByClienteAvencer(cliente, dataInicio, dataFim), HttpStatus.OK);
+                return new ResponseEntity<>(contasReceberRepository.findAllPendentesByCliente(idCliente, dataInicio, dataFim), HttpStatus.OK);
             case "vencidos":
-                return new ResponseEntity<>(contasReceberRepository.findAllByClienteVencido(cliente, dataInicio, dataFim), HttpStatus.OK);
+                return new ResponseEntity<>(contasReceberRepository.findAllByClienteVencido(idCliente, dataInicio, dataFim), HttpStatus.OK);
         }
         return  new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 
