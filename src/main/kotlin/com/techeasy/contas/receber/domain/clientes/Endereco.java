@@ -1,16 +1,9 @@
 package com.techeasy.contas.receber.domain.clientes;
 
-import com.techeasy.contas.receber.domain.clientes.model.Cliente;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(of = "id")
@@ -35,4 +28,36 @@ public class Endereco {
     private String cidade;
 
     private String complemento;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
 }

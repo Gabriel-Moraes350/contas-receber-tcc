@@ -45,12 +45,15 @@
                                     <td th:text="${cliente.nomeFantasia}"></td>
                                     <td th:text="${'(' + cliente.dddTelefone + ') ' + cliente.telefone}"></td>
                                     <td th:text="${cliente.bloqueado ? 'Sim' : 'Não'}"></td>
-                                    <td><a class="btn btn-secondary btn-small"
-                                           th:href="@{'/clientes/view?id=' + ${cliente.id}}"
-                                           style="background-color: #0998b0; border-color: #0998b0;">Editar</a>
-                                        <button class="btn btn-danger btn-small delete-item-btn" type="button"
-                                                th:attr="data-id=${cliente.id}" data-url="/clientes">Excluir
-                                        </button>
+                                    <td>
+                                        <div class="d-flex align-items-center justify-content-space-between" style="flex-direction: row">
+                                            <a class="btn btn-secondary btn-small"
+                                               th:href="@{'/clientes/view?id=' + ${cliente.id}}"
+                                               style="background-color: #0998b0; border-color: #0998b0;">Editar</a>
+                                            <button class="btn btn-danger btn-small delete-item-btn" type="button"
+                                                    th:attr="data-id=${cliente.id}" data-url="/clientes">Excluir
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>

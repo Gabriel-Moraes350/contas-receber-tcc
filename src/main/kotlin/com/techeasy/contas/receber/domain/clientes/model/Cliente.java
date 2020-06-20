@@ -49,4 +49,16 @@ public class Cliente {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public String getNomeFantasia() {
+        return nomeFantasia;
+    }
 }

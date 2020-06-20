@@ -24,6 +24,7 @@
                                 <tr class="border-0">
                                     <th class="border-0">#</th>
                                     <th class="border-0">Status</th>
+                                    <th class="border-0">Número Documento</th>
                                     <th class="border-0">Cliente</th>
                                     <th class="border-0">CPF/CNPJ</th>
                                     <th class="border-0">Serviço Prestado</th>
@@ -40,6 +41,8 @@
                                     <td th:text="${conta.id}"></td>
                                     <td th:text="${#strings.capitalize(conta.status)}">
                                     </td>
+                                    <td th:text="${conta.numDocumento}">
+                                    </td>
                                     <td th:text="${conta.cliente.nomeFantasia}"></td>
                                     <td th:if="${conta.cliente.tipo.name() == 'F'}" class="cpf-inputmask"
                                         th:text="${conta.cliente.cnpj}"></td>
@@ -51,12 +54,16 @@
                                             th:text="${#numbers.formatDecimal(conta.valorTotal, 2, 2, 'COMMA')}"></span>
                                     </td>
                                     <td th:text="${#temporals.format(conta.dataVencimento, 'dd/MM/yyyy')}"></td>
-                                    <td><a class="btn btn-secondary btn-small"
-                                           th:href="@{'/contas-receber/view?id=' + ${conta.id}}"
-                                           style="background-color: #0998b0; border-color: #0998b0;">Editar</a>
-                                        <button class="btn btn-danger btn-small delete-item-btn" type="button"
-                                                th:attr="data-id=${conta.id}" data-url="/contas-receber">Excluir
-                                        </button>
+                                    <td>
+                                        <div class="d-flex align-items-center justify-content-space-between" style="flex-direction: row">
+                                            <a class="btn btn-secondary btn-small mr-1"
+                                               th:href="@{'/contas-receber/view?id=' + ${conta.id}}"
+                                               style="background-color: #0998b0; border-color: #0998b0;">Editar</a>
+                                            <button class="btn btn-danger btn-small delete-item-btn" type="button"
+                                                    th:attr="data-id=${conta.id}" data-url="/contas-receber">Excluir
+                                            </button>
+                                        </div>
+
                                     </td>
                                 </tr>
                                 </tbody>

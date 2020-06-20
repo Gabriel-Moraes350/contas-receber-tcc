@@ -97,7 +97,7 @@
                         <div class="form-row">
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" style="min-width: 80%">
                                 <label class="col-form-label" for="rua">Logradouro*</label>
-                                <input class="form-control" id="rua" required th:field="${cliente.endereco.rua}" th:type="text">
+                                <input class="form-control" maxlength="40" id="rua" required th:field="${cliente.endereco.rua}" th:type="text">
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" style="max-width: 20%">
                                 <label class="col-form-label" for="numero">Número*</label>
@@ -108,7 +108,7 @@
                         <div class="form-row" style="margin-bottom: 12px">
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                 <label class="col-form-label" for="bairro">Bairro*</label>
-                                <input class="form-control" id="bairro" required th:field="${cliente.endereco.bairro}" th:type="text">
+                                <input class="form-control" maxlength="12" id="bairro" required th:field="${cliente.endereco.bairro}" th:type="text">
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                 <label class="col-form-label" for="cep">CEP*</label>
@@ -119,11 +119,11 @@
                         <div class="form-row" style="margin-bottom: 12px">
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                 <label class="col-form-label" for="uf">UF*</label>
-                                <input class="form-control" id="uf" required th:field="${cliente.endereco.uf}" th:type="text">
+                                <input class="form-control" maxlength="2" id="uf" required th:field="${cliente.endereco.uf}" th:type="text">
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                 <label class="col-form-label" for="cidade">Cidade*</label>
-                                <input class="form-control" id="cidade" required th:field="${cliente.endereco.cidade}" th:type="text">
+                                <input class="form-control" maxlength="15" id="cidade" required th:field="${cliente.endereco.cidade}" th:type="text">
                             </div>
                         </div>
 

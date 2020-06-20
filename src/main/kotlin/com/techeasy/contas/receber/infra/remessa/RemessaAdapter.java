@@ -30,6 +30,7 @@ import java.util.Date;
 @Component
 @Slf4j
 public class RemessaAdapter implements RemessaPort {
+	private static String nDocumento = "0000000001";
 
 	public static final int CARTEIRA_COBRANCA = 17;
 	public static final String VARIACAO_CARTEIRA = "019";
@@ -123,7 +124,7 @@ public class RemessaAdapter implements RemessaPort {
 
 		transacaoTitulos.setValue("NumeroCovenioCobrancaCedente", header.getConvenio());
 		transacaoTitulos.setValue("CodigoControleEmpresa", contasReceber.getId());
-		transacaoTitulos.setValue("NossoNumero", header.getConvenio() + contasReceber.getNumDocumento() + header.getSequencial());
+		transacaoTitulos.setValue("NossoNumero", header.getConvenio() + nDocumento);
 
 		transacaoTitulos.setValue("VariacaoCarteira", VARIACAO_CARTEIRA);
 		transacaoTitulos.setValue("CarteiraCobranca", CARTEIRA_COBRANCA);

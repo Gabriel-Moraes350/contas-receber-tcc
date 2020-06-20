@@ -46,4 +46,8 @@ interface ContasReceberRepository : JpaRepository<ContasReceber, Long> {
     @Query("select c from ContasReceber c where c.cliente = :cliente and c.dataCriacao between :dataInicio and :dataFim and " +
             "(c.status = 'enviado' or c.status = 'aguardando') and c.dataVencimento < CURRENT_DATE and deletedAt is null")
     fun findAllByClienteVencido(cliente: Cliente, dataInicio: OffsetDateTime, dataFim: OffsetDateTime): List<ContasReceber>
+
+    @Modifying
+    @Query("update contas_receber set status = :status where deleted_at is null and data_vencimento <= now()  and status != 'pago' ",nativeQuery = true)
+    fun updateStatusVencidas(@Param("status") status: String = StatusRecebimento.expirado.toString())
 }
