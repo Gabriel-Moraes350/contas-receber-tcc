@@ -25,14 +25,14 @@ public class SenderMailService {
                     "\nServiço Prestado: " + conta.getServicoPrestado() +
                     "\nForma de Pagamento: " + conta.getFormaPagamento() + "\n\n");
         }
-        return "Ola " + comunicacaoCliente.getCliente().getNomeFantasia() + " Tudo bem?" +
-                "\nNos somos da TechEasy e estamos lhe enviando este email por motivo de " +
+        return "Olá " + comunicacaoCliente.getCliente().getNomeFantasia() + " Tudo bem?" +
+                "\nNós somos da TechEasy e estamos lhe enviando este email por motivo de " +
                 comunicacaoCliente.getMotivoComunicacao() + " em uma de suas faturas.\n" +
                 "Segue a(s) fatura(s)\n"+
                 messages.toString() +
-                "\n\n Caso seja necessario, entre em contato conosco para podemos auxiliar melhor!" +
+                "\n\n Caso seja necessário, entre em contato conosco para podemos auxiliar melhor!" +
                 "\n\nAtenciosamente" +
-                "\nEquipe TechEasy";
+                "\nEquipe TechEasy!";
     }
 
     private SimpleMailMessage prepareEmail(ComunicacaoCliente comunicacaoCliente, List<ContasReceber> contas) {

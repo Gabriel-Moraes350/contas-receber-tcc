@@ -45,7 +45,7 @@
                                     </td>
                                     <td th:text="${conta.cliente.nomeFantasia}"></td>
                                     <td th:if="${conta.cliente.tipo.name() == 'F'}" class="cpf-inputmask"
-                                        th:text="${conta.cliente.cpf}"></td>
+                                        th:text="${conta.cliente.cnpj}"></td>
                                     <td th:unless="${conta.cliente.tipo.name() == 'F'}" class="cnpj-inputmask"
                                         th:text="${conta.cliente.cnpj}"></td>
                                     <td th:text="${conta.tipoServicoPrestado.description}">

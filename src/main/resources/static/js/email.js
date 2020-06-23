@@ -34,8 +34,6 @@ $(function (e) {
 });
 
 const doSendMailRequest = (contasList, motivo) => {
-console.log(contasList);
-console.log(typeof (contasList));
 $.ajax({
     type: "POST",
     url: "/comunicacao-cliente/sendMail",

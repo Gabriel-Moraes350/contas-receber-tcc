@@ -147,11 +147,11 @@ public class RemessaAdapter implements RemessaPort {
 		transacaoTitulos.setValue("ValorDesconto", getValorDesconto(contasReceber));
 
 		transacaoTitulos.setValue("TipoInscricaoPagador", getTipoInscricao(cliente));
-		transacaoTitulos.setValue("NumeroCnpjCpfPagador", cliente.getCnpj());
+		transacaoTitulos.setValue("NumeroCnpjCpfPagador", cliente.getCnpj().replaceAll("[^\\d]", ""));
 		transacaoTitulos.setValue("NomePagador", cliente.getRazaoSocial());
 
 		transacaoTitulos.setValue("EnderecoPagador", cliente.getEndereco().getRua() + cliente.getEndereco().getNumero());
-		transacaoTitulos.setValue("BairroPagador", cliente.getEndereco().getBairro());
+		transacaoTitulos.setValue("BairroPagador", cliente.getEndereco().getBairro().substring(0, 12));
 		transacaoTitulos.setValue("CepEnderecoPagador", cliente.getEndereco().getCep());
 		transacaoTitulos.setValue("CidadePagador", cliente.getEndereco().getCidade());
 		transacaoTitulos.setValue("UfCidadePagador", cliente.getEndereco().getUf());
