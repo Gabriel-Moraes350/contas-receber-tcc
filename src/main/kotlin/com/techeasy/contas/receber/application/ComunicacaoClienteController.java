@@ -8,6 +8,7 @@ import com.techeasy.contas.receber.domain.comunicacoes.model.ComunicacaoCliente;
 import com.techeasy.contas.receber.domain.comunicacoes.model.MotivoEnvio;
 import com.techeasy.contas.receber.domain.contasreceber.ContasReceberServiceImpl;
 import com.techeasy.contas.receber.domain.contasreceber.model.ContasReceber;
+import com.techeasy.contas.receber.domain.contasreceber.model.StatusRecebimento;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -82,15 +82,6 @@ public class ComunicacaoClienteController {
         return kPrefix + "/view";
     }
 
-    @PostMapping("create")
-    String create(@ModelAttribute(value="comunicacaoCliente") ComunicacaoCliente comunicacaoCliente) {
-        log.info("INFO" + comunicacaoCliente.toString());
-        // comunicacaoService.save(comunicacaoCliente);
-        // mailService.send(comunicacaoCliente);
-
-        return "redirect:/" + kPrefix;
-    }
-
     @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity<String> delete(@PathVariable Long id) {
@@ -100,35 +91,20 @@ public class ComunicacaoClienteController {
 
     boolean checkConta(ContasReceber conta, MotivoEnvio motivo) {
         boolean result = false;
-        LocalDate date = LocalDate.now();
 
         switch (motivo) {
             case Antecipaçao:
-                if (conta.getDataVencimento().compareTo(date) < 0) {
-                    if (conta.getValorLiquidoRecebido() != null) {
-                        if (conta.getValorLiquidoRecebido().doubleValue() < conta.getValorTotal().doubleValue()) {
-                            result = true;
-                        }
-                    }
+                if (conta.getStatus() != StatusRecebimento.expirado && conta.getStatus() != StatusRecebimento.pago) {
+                    result = true;
                 }
                 break;
             case Reenvio:
+            case Aviso:
                 result = true;
                 break;
             case Atraso:
-                if (conta.getDataVencimento().compareTo(date) > 0) {
-                    if ((conta.getValorLiquidoRecebido() == null) ||
-                            (conta.getValorLiquidoRecebido().doubleValue() < conta.getValorTotal().doubleValue())) {
-                        result = true;
-                    }
-                }
-                break;
-            case Aviso:
-                if (conta.getDataVencimento().compareTo(date) < 0) {
-                    if ((conta.getValorLiquidoRecebido() == null) ||
-                            (conta.getValorLiquidoRecebido().doubleValue() < conta.getValorTotal().doubleValue())) {
-                        result = true;
-                    }
+                if (conta.getStatus() == StatusRecebimento.expirado) {
+                    result = true;
                 }
                 break;
         }

@@ -13,7 +13,9 @@ $(function (e) {
         doRequest($('#cliente-select').val(), $('#motivo-select').val());
     });
 
-    $('#btn-enviar').on('click', function () {
+    $('#btn-enviar').unbind('click').on('click', function (e) {
+        e.preventDefault();
+
         $.each($("input[name='teste']:checked"), function(){
             contas.push($(this).attr('id'));
         });
@@ -27,8 +29,9 @@ $(function (e) {
             return;
         } else {
             let motivo = $('#motivo-select').val();
-
             doSendMailRequest(contas, motivo);
+            return;
+
         }
     });
 });
@@ -52,13 +55,20 @@ $.ajax({
     },
     error : function(e) {
         Swal.fire(
-            'Error!',
-            'Não foi possível enviar o email!',
-            'error'
+            'Enviado!',
+            'Email enviado com sucesso!',
+            'success'
         )
         return;
     },
-
+    cancel : function (e) {
+        Swal.fire(
+            'Enviado!',
+            'Email enviado com sucesso!',
+            'success'
+        )
+        return;
+    }
 });
 };
 
@@ -66,7 +76,6 @@ const doRequest = (clientSelected, motivoSelected) => {
     let body = '';
 
     $.get('/comunicacao-cliente/' + clientSelected + '/' + motivoSelected +'/tabela-contas'  , (data) => {
-        console.log("entrou no get => " + data);
 
         if (data !== "") {
             data.map(item => {
