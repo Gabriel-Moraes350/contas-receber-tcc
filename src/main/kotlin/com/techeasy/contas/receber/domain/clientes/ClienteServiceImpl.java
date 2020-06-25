@@ -58,4 +58,21 @@ public class ClienteServiceImpl implements ClienteService {
         cliente.get().setDeleteDate(new Date());
         clienteRepository.save(cliente.get());
     }
+
+    @Override
+    public void bloquear(Cliente cliente) {
+
+        cliente.setBloqueado(true);
+        cliente.setDatUltBloqueio(new Date());
+        clienteRepository.save(cliente);
+    }
+
+    @Override
+    public void desbloquear(Cliente cliente) {
+
+        cliente.setBloqueado(false);
+        cliente.setDatUltBloqueio(null);
+        clienteRepository.save(cliente);
+    }
+
 }

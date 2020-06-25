@@ -88,5 +88,12 @@ $(function(e) {
 });
 
 $(document).ready(function () {
+    let searchParams = new URLSearchParams(window.location.search)
+    const cliente = searchParams.get('cliente')
 
+    if(cliente){
+        $('#input-select').val(cliente).change();
+        $('#inicio').val('01/06/2020')
+        $('#fim').val('30/06/2020')
+    }
 })

@@ -15,4 +15,8 @@ public interface ClienteService {
 
     void delete(Long id);
 
+    void bloquear(Cliente cliente);
+
+    void desbloquear(Cliente cliente);
+
 }

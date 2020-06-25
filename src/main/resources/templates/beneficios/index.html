@@ -14,7 +14,7 @@
             <div class="card">
                 <form>
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5>Beneficios</h5>
+                        <h5>Benefícios</h5>
                         <a class="btn btn-primary pull-right" href="/beneficios/view">Criar Novo</a>
                     </div>
                     <div class="card-body p-0">
@@ -33,19 +33,21 @@
                                 </thead>
                                 <tbody>
                                 <tr th:if="${beneficios.empty}">
-                                    <td colspan="10"> Não há beneficios</td>
+                                    <td colspan="10"> Não há benefícios</td>
                                 </tr>
                                 <tr th:each="beneficio: ${beneficios}">
                                     <td th:text="${beneficio.id}"></td>
                                     <td th:text="${beneficio.cliente.nomeFantasia}"></td>
                                     <td th:if="${beneficio.cliente.tipo.name() == 'F'}" class="cpf-inputmask"
-                                        th:text="${beneficio.cliente.cpf}"></td>
+                                        th:text="${beneficio.cliente.cnpj}"></td>
                                     <td th:unless="${beneficio.cliente.tipo.name() == 'F'}" class="cnpj-inputmask"
                                         th:text="${beneficio.cliente.cnpj}"></td>
                                     <td th:text="${beneficio.descricao.description}">
                                     </td>
-                                    <td>R$<span
+                                    <td><div th:if="${beneficio.valorDesconto != null}">
+                                        R$<span
                                             th:text="${#numbers.formatDecimal(beneficio.valorDesconto, 2, 2, 'COMMA')}"></span>
+                                    </div>
                                     </td>
                                     <td th:text="${#temporals.format(beneficio.dtValidade, 'dd/MM/yyyy')}"></td>
                                     <td>

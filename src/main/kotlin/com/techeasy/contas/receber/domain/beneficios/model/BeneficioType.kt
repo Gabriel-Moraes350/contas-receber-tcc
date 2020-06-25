@@ -1,7 +1,7 @@
 package com.techeasy.contas.receber.domain.beneficios.model
 
 enum class BeneficioType(val description: String) {
-    BLOCK("Bloqueio"),
+    BLOCK("Restrição"),
     DESCONTO("Desconto");
 
     fun getByDescription(desc:String): BeneficioType? {

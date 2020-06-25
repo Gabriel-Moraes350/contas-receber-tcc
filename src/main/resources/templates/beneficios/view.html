@@ -10,27 +10,26 @@
     <div class="row">
         <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
             <div class="card">
-                <h5 class="card-header ">Beneficios</h5>
+                <h5 class="card-header ">Benefícios</h5>
                 <form action="#" method="post" th:action="@{/beneficios/save}" th:object="${beneficio}">
                     <div class="card-body">
                         <p>
-                            Cadastro de beneficios<br>
-                            Selecione o cliente e o apropriado tipo de beneficio<br>
+                            Cadastro de benefícios<br>
+                            Selecione o cliente e o apropriado tipo de benefício<br>
                             <i>Campos com * são obrigatórios</i>
                         </p>
                         <input class="form-control" name="id" th:field="*{id}" th:type="hidden">
-                        <input class="form-control" th:field="*{dtCriacao}" th:type="hidden">
                         <div class="form-row  justify-content-space-between align-items-flex-end" style="justify-content: space-between; align-items: flex-end">
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                <label for="select-cliente">Cliente*</label>
-                                <select class="form-control select2" id="select-cliente" required th:field="*{cliente}">
+                                <label for="select-cliente-beneficio">Cliente*</label>
+                                <select class="form-control select2" id="select-cliente-beneficio" required th:field="*{cliente}">
                                     <option th:each="cliente : ${clientes}"
                                             th:text="${cliente.nomeFantasia + ' - (' + cliente.cnpj + ')'}"
                                             th:value="${cliente.id}"></option>
                                 </select>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                                <a style="white-space: normal; padding: 7px" class="btn btn-primary text-white btn-small" data-href="/consultar?cliente=" data-cliente-id="">Histórico do cliente</a>
+                                <a style="white-space: normal; padding: 7px" id="btn-beneficio-history-cliente" class="btn btn-primary text-white btn-small" data-href="/consultar?cliente=" data-cliente-id="">Histórico do cliente</a>
                             </div>
                         </div>
 
@@ -38,21 +37,20 @@
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                 <label>Tipo*</label>
                                 <select class="form-control select2" required th:field="*{descricao}">
-                                    <option th:each="value : ${beneficioTypes}" th:text="${#strings.capitalize(value.description)}"
-                                            th:value="${value.description}"></option>
+                                    <option th:each="value : ${beneficioTypes}" th:text="${value.description}"
+                                            th:value="${value}"></option>
                                 </select>
                             </div>
 
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                 <label>Data Validade*</label>
                                 <input class="form-control date-inputmask" required th:field="*{dtValidade}"
-                                       th:value="${#temporals.format(beneficio.dtValidade, 'dd/MM/yyyy')}"
-                                       type="text">
+                                       th:value="${#temporals.format(beneficio.dtValidade, 'dd/MM/yyyy')}">
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                 <label for="valorDesconto">Valor Desconto (R$)*</label>
                                 <input class="form-control currency" id="valorDesconto" th:field="*{valorDesconto}"
-                                       type="text">
+                                       th:type="text">
                             </div>
 
                         </div>
