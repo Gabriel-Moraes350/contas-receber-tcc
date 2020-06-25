@@ -151,7 +151,7 @@ public class RemessaAdapter implements RemessaPort {
 		transacaoTitulos.setValue("NomePagador", cliente.getRazaoSocial());
 
 		transacaoTitulos.setValue("EnderecoPagador", cliente.getEndereco().getRua() + cliente.getEndereco().getNumero());
-		transacaoTitulos.setValue("BairroPagador", cliente.getEndereco().getBairro().substring(0, 12));
+		transacaoTitulos.setValue("BairroPagador", cliente.getEndereco().getBairro().length() > 12 ? cliente.getEndereco().getBairro().substring(0, 12) : cliente.getEndereco().getBairro());
 		transacaoTitulos.setValue("CepEnderecoPagador", cliente.getEndereco().getCep());
 		transacaoTitulos.setValue("CidadePagador", cliente.getEndereco().getCidade());
 		transacaoTitulos.setValue("UfCidadePagador", cliente.getEndereco().getUf());

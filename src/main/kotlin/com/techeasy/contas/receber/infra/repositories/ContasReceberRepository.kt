@@ -43,7 +43,7 @@ interface ContasReceberRepository : JpaRepository<ContasReceber, Long> {
 
     @Query(value = """
         select * from contas_receber c where c.cliente_id = :clienteId and c.data_criacao between :dataInicio and :dataFim and 
-            (c.status = 'enviado' or c.status = 'aguardando') and c.data_vencimento < now() and deleted_at is null
+            (c.status = 'expirado') and c.data_vencimento < now() and deleted_at is null
     """, nativeQuery = true)
     fun findAllByClienteVencido(clienteId: Long, dataInicio: OffsetDateTime, dataFim: OffsetDateTime): List<ContasReceber>
 
